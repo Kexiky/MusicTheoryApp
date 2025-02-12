@@ -51,24 +51,6 @@ def analyze_chord_with_music21(note_set):
         return ""
     chord_obj = m21Chord.Chord(note_set)
     chord_str = chord_obj.pitchedCommonName or "Неизвестный аккорд"
-    # pitches = []
-    # for n in note_set:
-    #     p = m21Pitch.Pitch()
-    #     p.midi = n
-    #     pitches.append(p)
-    # try:
-    #     c = m21Chord.Chord(pitches)
-    #     chord_symbol = harmony.chordSymbolFromChord(c)
-    #     chord_str = str(chord_symbol)
-    #     # Если обозначение не удалось определить, возвращаем запасной вариант (например, список нот)
-    #     if "Cannot Be Identified" in chord_str:
-    #         logger.warning("Chord symbol cannot be identified; using fallback representation.")
-    #         chord_str = "Chord: " + ", ".join(p.nameWithOctave for p in pitches)
-    #     else:
-    #         logger.info("Analyzed chord: %s", chord_str)
-    # except Exception as e:
-    #     logger.exception("Error analyzing chord with music21: %s", e)
-    #     chord_str = ""
     return chord_str
 
 def get_chord_info(chord_text):
@@ -77,22 +59,12 @@ def get_chord_info(chord_text):
     if not chord_str:
         return (None, None)
     
-    root = chord_str[0]
+    root = chord_str[0] if ('#' not in chord_str) and ('b' not in chord_str) else chord_str[:2]
     quality = "major"
     if len(chord_str) <= 1:
         return (root, quality)
     
     quality = 'major' if 'major' in chord_str else "minor"
-
-    # quality = "major"
-    # if len(chord_str) > 1:
-    #     if chord_str[1] in ['#', 'b']:
-    #         root += chord_str[1]
-    #         rest = chord_str[2:]
-    #     else:
-    #         rest = chord_str[1:]
-    #     if rest.startswith("m") and not rest.startswith("maj"):
-    #         quality = "minor"
     return (root, quality)
 
 def map_to_circle_key(root):

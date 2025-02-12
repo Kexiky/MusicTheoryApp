@@ -13,6 +13,7 @@ class Controller:
         self.current_notes = set()
         self.current_key = KEY_SIGNATURES.keys().__iter__().__next__()  # по умолчанию первый ключ, например "C"
         self.current_key = "C"  # или можно явно задать
+
     def process_event(self, event):
         if event.type == pygame.QUIT:
             return False
