@@ -21,7 +21,7 @@ def main():
     pygame.init()
     pygame.midi.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.RESIZABLE)
-    pygame.display.set_caption("Music Notation with Circle of Fifths and music21")
+    pygame.display.set_caption("Music Theory App")
     clock = pygame.time.Clock()
 
     controller = Controller(screen)
